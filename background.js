@@ -25,6 +25,12 @@ browser.contextMenus.create({
     contexts: ["all", "tab"]
 });
 
+browser.contextMenus.create({
+    id: "copy-as-text",
+    title: browser.i18n.getMessage("copyAsText"),
+    contexts: ["all", "tab"]
+});
+
 browser.contextMenus.onClicked.addListener((info, tab) => {
     const decodedUrl = decodeURI(tab.url);
     const title = tab.title;
@@ -56,10 +62,12 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
         const code = `copyToClipboard(${JSON.stringify(decodedUrl)});`;
         executeCopy(code);
     } else {
-        // markdownの場合のtextをデフォルトでセット
-        let text = `[${title}](${decodedUrl})`;
+        // プレーンテキストのtextをデフォルトでセット
+        let text = `${title} <${decodedUrl}>`;
 
-        if (info.menuItemId === "copy-as-rst") {
+        if (info.menuItemId === "copy-as-markdown") {
+            text = `[${title}](${decodedUrl})`;
+        } else if (info.menuItemId === "copy-as-rst") {
             text = `\`${title} <${decodedUrl}>\`_`;
         } else if (info.menuItemId === "copy-as-textile") {
             text = `"${title}":${decodedUrl}`;
