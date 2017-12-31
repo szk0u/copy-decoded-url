@@ -1,27 +1,27 @@
-browser.contextMenus.create({
-    id: "copy-decoded-url",
-    title: "このタブのURLを日本語のままコピー",
-    contexts: ["all", "tab"]
-});
-
-// コンテキストメニューを2つ以上、追加すると、自動的にサブメニューになる
+// コンテキストメニューを2つ以上追加すると、自動的にサブメニューになる
 // https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/menus#Creating_menu_items
 
 browser.contextMenus.create({
-    id: "copy-decoded-url-markdown",
-    title: "このタブのタイトルとURLをコピー(markdown形式)",
+    id: "copy-only-url",
+    title: browser.i18n.getMessage("copyOnlyUrl"),
     contexts: ["all", "tab"]
 });
 
 browser.contextMenus.create({
-    id: "copy-decoded-url-rst",
-    title: "このタブのタイトルとURLをコピー(reStructuredText形式)",
+    id: "copy-as-markdown",
+    title: browser.i18n.getMessage("copyAsMarkdown"),
     contexts: ["all", "tab"]
 });
 
 browser.contextMenus.create({
-    id: "copy-decoded-url-textile",
-    title: "このタブのタイトルとURLをコピー(textile形式)",
+    id: "copy-as-rst",
+    title: browser.i18n.getMessage("copyAsRst"),
+    contexts: ["all", "tab"]
+});
+
+browser.contextMenus.create({
+    id: "copy-as-textile",
+    title: browser.i18n.getMessage("copyAsTextile"),
     contexts: ["all", "tab"]
 });
 
@@ -52,16 +52,16 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
         });
     };
 
-    if (info.menuItemId === "copy-decoded-url") {
+    if (info.menuItemId === "copy-only-url") {
         const code = `copyToClipboard(${JSON.stringify(decodedUrl)});`;
         executeCopy(code);
     } else {
         // markdownの場合のtextをデフォルトでセット
         let text = `[${title}](${decodedUrl})`;
 
-        if (info.menuItemId === "copy-decoded-url-rst") {
+        if (info.menuItemId === "copy-as-rst") {
             text = `\`${title} <${decodedUrl}>\`_`;
-        } else if (info.menuItemId === "copy-decoded-url-textile") {
+        } else if (info.menuItemId === "copy-as-textile") {
             text = `"${title}":${decodedUrl}`;
         }
 

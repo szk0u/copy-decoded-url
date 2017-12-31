@@ -1,10 +1,11 @@
 {
 
     "manifest_version": 2,
-    "name": "copy-decoded-url",
-    "description": "現在のページのURLを日本語の状態(デコードした状態)でコピーします。",
+    "name": "__MSG_extensionName__",
+    "description": "__MSG_extensionDescription__",
     "version": "1.0",
     "homepage_url": "https://github.com/szk0u/copy-decoded-url",
+    "default_locale": "ja",
 
     "background": {
       "scripts": ["background.js"]

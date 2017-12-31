@@ -1,0 +1,31 @@
+{
+  "extensionName": {
+    "message": "タブのURLを日本語のままコピー",
+    "description": "拡張機能の名前です。"
+  },
+
+  "extensionDescription": {
+    "message": "現在のタブのURLを日本語の状態(デコードした状態)でコピーします。",
+    "description": "拡張機能の説明です。"
+  },
+
+  "copyOnlyUrl": {
+    "message": "リンクのみコピー",
+    "description": "コンテキストメニューのタイトルです。"
+  },
+
+  "copyAsMarkdown": {
+    "message": "リンクとタイトルをコピー(markdown形式)",
+    "description": "コンテキストメニューのタイトルです。"
+  },
+
+  "copyAsRst": {
+    "message": "リンクとタイトルをコピー(reStructuredText形式)",
+    "description": "コンテキストメニューのタイトルです。"
+  },
+
+  "copyAsTextile": {
+    "message": "リンクとタイトルをコピー(textile形式)",
+    "description": "コンテキストメニューのタイトルです。"
+  }
+}
