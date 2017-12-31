@@ -1,0 +1,19 @@
+{
+
+    "manifest_version": 2,
+    "name": "copy-decoded-url",
+    "description": "現在のページのURLを日本語の状態(デコードした状態)でコピーします。",
+    "version": "1.0",
+    "homepage_url": "https://github.com/szk0u/copy-decoded-url",
+
+    "background": {
+      "scripts": ["background.js"]
+    },
+
+    "permissions": [
+      "activeTab",
+      "contextMenus",
+      "clipboardWrite"
+    ]
+
+}
