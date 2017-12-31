@@ -1,6 +1,6 @@
 browser.contextMenus.create({
     id: "copy-decoded-url",
-    title: "このページのURLを日本語のままコピー",
+    title: "このタブのURLを日本語のままコピー",
     contexts: ["all", "tab"]
 });
 
