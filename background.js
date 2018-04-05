@@ -4,31 +4,37 @@
 browser.contextMenus.create({
     id: "copy-only-url",
     title: browser.i18n.getMessage("copyOnlyUrl"),
-    contexts: ["all", "tab"]
+    contexts: ["page", "tab"]
 });
 
 browser.contextMenus.create({
     id: "copy-as-markdown",
     title: browser.i18n.getMessage("copyAsMarkdown"),
-    contexts: ["all", "tab"]
+    contexts: ["page", "tab"]
 });
 
 browser.contextMenus.create({
     id: "copy-as-rst",
     title: browser.i18n.getMessage("copyAsRst"),
-    contexts: ["all", "tab"]
+    contexts: ["page", "tab"]
 });
 
 browser.contextMenus.create({
     id: "copy-as-textile",
     title: browser.i18n.getMessage("copyAsTextile"),
-    contexts: ["all", "tab"]
+    contexts: ["page", "tab"]
 });
 
 browser.contextMenus.create({
     id: "copy-as-text",
     title: browser.i18n.getMessage("copyAsText"),
-    contexts: ["all", "tab"]
+    contexts: ["page", "tab"]
+});
+
+browser.contextMenus.create({
+    id: "copy-link",
+    title: browser.i18n.getMessage("copyLink"),
+    contexts: ["link"]
 });
 
 browser.contextMenus.onClicked.addListener((info, tab) => {
@@ -58,9 +64,11 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
         });
     };
 
-    if (info.menuItemId === "copy-only-url") {
-        const code = `copyToClipboard(${JSON.stringify(decodedUrl)});`;
-        executeCopy(code);
+    let code = "";
+    if (info.menuItemId === "copy-link") {
+        code = `copyToClipboard(${JSON.stringify(decodeURI(info.linkUrl))});`;
+    } else if (info.menuItemId === "copy-only-url") {
+        code = `copyToClipboard(${JSON.stringify(decodedUrl)});`;
     } else {
         // プレーンテキストのtextをデフォルトでセット
         let text = `${title} <${decodedUrl}>`;
@@ -73,7 +81,7 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
             text = `"${title}":${decodedUrl}`;
         }
 
-        const code = `copyToClipboard(${JSON.stringify(text)});`;
-        executeCopy(code);
+        code = `copyToClipboard(${JSON.stringify(text)});`;
     }
+    executeCopy(code);
 });

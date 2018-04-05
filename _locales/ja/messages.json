@@ -32,5 +32,10 @@
   "copyAsTextile": {
     "message": "リンクとタイトルをコピー(textile形式)",
     "description": "コンテキストメニューのタイトルです。"
+  },
+
+  "copyLink": {
+    "message": "リンクのURLを日本語のままコピー",
+    "description": "コンテキストメニューのタイトルです。"
   }
 }
