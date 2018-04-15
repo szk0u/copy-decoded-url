@@ -1,40 +1,65 @@
 {
   "extensionName": {
-    "message": "タブのURLを日本語のままコピー",
+    "message": "URLを日本語のままコピー",
     "description": "拡張機能の名前です。"
   },
 
   "extensionDescription": {
-    "message": "現在のタブのURLを日本語の状態(デコードした状態)でコピーします。",
+    "message": "URLを日本語の状態(デコードした状態)でコピーします。",
     "description": "拡張機能の説明です。"
   },
 
-  "copyOnlyUrl": {
-    "message": "リンクのみコピー",
+  "copyPageUrlOnlyUrl": {
+    "message": "現在のページのURLのみコピー",
     "description": "コンテキストメニューのタイトルです。"
   },
 
-  "copyAsText": {
-    "message": "リンクとタイトルをコピー",
+  "copyPageUrlAsTxt": {
+    "message": "現在のページのURLとタイトルをコピー",
     "description": "コンテキストメニューのタイトルです。"
   },
 
-  "copyAsMarkdown": {
-    "message": "リンクとタイトルをコピー(markdown形式)",
+  "copyPageUrlAsMd": {
+    "message": "現在のページのURLとタイトルをコピー(markdown形式)",
     "description": "コンテキストメニューのタイトルです。"
   },
 
-  "copyAsRst": {
-    "message": "リンクとタイトルをコピー(reStructuredText形式)",
+  "copyPageUrlAsRst": {
+    "message": "現在のページのURLとタイトルをコピー(reStructuredText形式)",
     "description": "コンテキストメニューのタイトルです。"
   },
 
-  "copyAsTextile": {
-    "message": "リンクとタイトルをコピー(textile形式)",
+  "copyPageUrlAsTextile": {
+    "message": "現在のページのURLとタイトルをコピー(textile形式)",
     "description": "コンテキストメニューのタイトルです。"
   },
 
-  "copyLink": {
+  "copyTabUrlOnlyUrl": {
+    "message": "タブのURLのみコピー",
+    "description": "コンテキストメニューのタイトルです。"
+  },
+
+  "copyTabUrlAsTxt": {
+    "message": "タブのURLとタイトルをコピー",
+    "description": "コンテキストメニューのタイトルです。"
+  },
+
+  "copyTabUrlAsMd": {
+    "message": "タブのURLとタイトルをコピー(markdown形式)",
+    "description": "コンテキストメニューのタイトルです。"
+  },
+
+  "copyTabUrlAsRst": {
+    "message": "タブのURLとタイトルをコピー(reStructuredText形式)",
+    "description": "コンテキストメニューのタイトルです。"
+  },
+
+  "copyTabUrlAsTextile": {
+    "message": "タブのURLとタイトルをコピー(textile形式)",
+    "description": "コンテキストメニューのタイトルです。"
+  },
+
+  "copyLinkUrl": {
     "message": "リンクのURLを日本語のままコピー",
     "description": "コンテキストメニューのタイトルです。"
   }

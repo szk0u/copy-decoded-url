@@ -1,39 +1,49 @@
 // コンテキストメニューを2つ以上追加すると、自動的にサブメニューになる
 // https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/menus#Creating_menu_items
 
-browser.contextMenus.create({
-    id: "copy-only-url",
-    title: browser.i18n.getMessage("copyOnlyUrl"),
-    contexts: ["page", "tab"]
+const COPY_PAGE_URL_ONLY_URL = 'copyPageUrlOnlyUrl';
+const COPY_PAGE_URL_AS_MD = 'copyPageUrlAsMd';
+const COPY_PAGE_URL_AS_RST = 'copyPageUrlAsRst';
+const COPY_PAGE_URL_AS_TEXTILE = 'copyPageUrlAsTextile';
+const COPY_PAGE_URL_AS_TXT = 'copyPageUrlAsTxt';
+const COPY_TAB_URL_ONLY_URL = 'copyTabUrlOnlyUrl';
+const COPY_TAB_URL_AS_MD = 'copyTabUrlAsMd';
+const COPY_TAB_URL_AS_RST = 'copyTabUrlAsRst';
+const COPY_TAB_URL_AS_TEXTILE = 'copyTabUrlAsTextile';
+const COPY_TAB_URL_AS_TXT = 'copyTabUrlAsTxt';
+const COPY_LINK_URL = 'copyLinkUrl';
+
+// add page context menu
+[COPY_PAGE_URL_ONLY_URL, COPY_PAGE_URL_AS_MD, COPY_PAGE_URL_AS_RST,
+ COPY_PAGE_URL_AS_TEXTILE, COPY_PAGE_URL_AS_TXT].forEach((id) => {
+    browser.contextMenus.create({
+        id: id,
+        title: browser.i18n.getMessage(id),
+        contexts: ["page"]
+    });
 });
 
-browser.contextMenus.create({
-    id: "copy-as-markdown",
-    title: browser.i18n.getMessage("copyAsMarkdown"),
-    contexts: ["page", "tab"]
-});
+// add tab context menu
+if (typeof(browser.runtime.getBrowserInfo) !== 'undefined') {
+    let gettingInfo = browser.runtime.getBrowserInfo();
+    gettingInfo.then((info) => {
+        if (info.name === 'Firefox') {
+            [COPY_TAB_URL_ONLY_URL, COPY_TAB_URL_AS_MD, COPY_TAB_URL_AS_RST,
+             COPY_TAB_URL_AS_TEXTILE, COPY_TAB_URL_AS_TXT].forEach((id) => {
+                browser.contextMenus.create({
+                    id: id,
+                    title: browser.i18n.getMessage(id),
+                    contexts: ["tab"]
+                });
+            });
+        }
+    });
+}
 
+// add link context menu
 browser.contextMenus.create({
-    id: "copy-as-rst",
-    title: browser.i18n.getMessage("copyAsRst"),
-    contexts: ["page", "tab"]
-});
-
-browser.contextMenus.create({
-    id: "copy-as-textile",
-    title: browser.i18n.getMessage("copyAsTextile"),
-    contexts: ["page", "tab"]
-});
-
-browser.contextMenus.create({
-    id: "copy-as-text",
-    title: browser.i18n.getMessage("copyAsText"),
-    contexts: ["page", "tab"]
-});
-
-browser.contextMenus.create({
-    id: "copy-link",
-    title: browser.i18n.getMessage("copyLink"),
+    id: COPY_LINK_URL,
+    title: browser.i18n.getMessage(COPY_LINK_URL),
     contexts: ["link"]
 });
 
@@ -65,19 +75,19 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
     };
 
     let code = "";
-    if (info.menuItemId === "copy-link") {
+    if (info.menuItemId === COPY_LINK_URL) {
         code = `copyToClipboard(${JSON.stringify(decodeURI(info.linkUrl))});`;
-    } else if (info.menuItemId === "copy-only-url") {
+    } else if (info.menuItemId === COPY_PAGE_URL_ONLY_URL || info.menuItemId == COPY_TAB_URL_ONLY_URL) {
         code = `copyToClipboard(${JSON.stringify(decodedUrl)});`;
     } else {
         // プレーンテキストのtextをデフォルトでセット
         let text = `${title} <${decodedUrl}>`;
 
-        if (info.menuItemId === "copy-as-markdown") {
+        if (info.menuItemId === COPY_PAGE_URL_AS_MD || info.menuItemId === COPY_TAB_URL_AS_MD) {
             text = `[${title}](${decodedUrl})`;
-        } else if (info.menuItemId === "copy-as-rst") {
+        } else if (info.menuItemId === COPY_PAGE_URL_AS_RST || info.menuItemId === COPY_TAB_URL_AS_RST) {
             text = `\`${title} <${decodedUrl}>\`_`;
-        } else if (info.menuItemId === "copy-as-textile") {
+        } else if (info.menuItemId === COPY_PAGE_URL_AS_TEXTILE || COPY_PAGE_URL_AS_TEXTILE) {
             text = `"${title}":${decodedUrl}`;
         }
 
