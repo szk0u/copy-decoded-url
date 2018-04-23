@@ -1,0 +1,15 @@
+{
+  "name": "copy-decoded-url",
+  "version": "1.0.0",
+  "repository": "https://github.com/szk0u/copy-decoded-url.git",
+  "author": "szk0u <szk0u3@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "web-ext": "^2.6.0"
+  },
+  "scripts": {
+    "start": "./node_modules/.bin/web-ext run",
+    "build": "./node_modules/.bin/web-ext build",
+    "test": "./node_modules/.bin/web-ext lint"
+  }
+}
