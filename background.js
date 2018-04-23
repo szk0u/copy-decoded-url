@@ -14,8 +14,12 @@ const COPY_TAB_URL_AS_TXT = 'copyTabUrlAsTxt';
 const COPY_LINK_URL = 'copyLinkUrl';
 
 // add page context menu
-[COPY_PAGE_URL_ONLY_URL, COPY_PAGE_URL_AS_MD, COPY_PAGE_URL_AS_RST,
- COPY_PAGE_URL_AS_TEXTILE, COPY_PAGE_URL_AS_TXT].forEach((id) => {
+[COPY_PAGE_URL_ONLY_URL,
+ COPY_PAGE_URL_AS_MD,
+ COPY_PAGE_URL_AS_RST,
+ COPY_PAGE_URL_AS_TEXTILE,
+ COPY_PAGE_URL_AS_TXT]
+ .forEach((id) => {
     browser.contextMenus.create({
         id: id,
         title: browser.i18n.getMessage(id),
@@ -24,12 +28,16 @@ const COPY_LINK_URL = 'copyLinkUrl';
 });
 
 // add tab context menu
-if (typeof(browser.runtime.getBrowserInfo) !== 'undefined') {
+if (typeof (browser.runtime.getBrowserInfo) !== 'undefined') {
     let gettingInfo = browser.runtime.getBrowserInfo();
     gettingInfo.then((info) => {
         if (info.name === 'Firefox') {
-            [COPY_TAB_URL_ONLY_URL, COPY_TAB_URL_AS_MD, COPY_TAB_URL_AS_RST,
-             COPY_TAB_URL_AS_TEXTILE, COPY_TAB_URL_AS_TXT].forEach((id) => {
+            [COPY_TAB_URL_ONLY_URL,
+             COPY_TAB_URL_AS_MD,
+             COPY_TAB_URL_AS_RST,
+             COPY_TAB_URL_AS_TEXTILE,
+             COPY_TAB_URL_AS_TXT]
+             .forEach((id) => {
                 browser.contextMenus.create({
                     id: id,
                     title: browser.i18n.getMessage(id),
@@ -48,9 +56,6 @@ browser.contextMenus.create({
 });
 
 browser.contextMenus.onClicked.addListener((info, tab) => {
-    const decodedUrl = decodeURI(tab.url);
-    const title = tab.title;
-
     const executeCopy = (code) => {
         browser.tabs.executeScript({
             code: "typeof copyToClipboard === 'function';",
@@ -74,24 +79,41 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
         });
     };
 
-    let code = "";
-    if (info.menuItemId === COPY_LINK_URL) {
-        code = `copyToClipboard(${JSON.stringify(decodeURI(info.linkUrl))});`;
-    } else if (info.menuItemId === COPY_PAGE_URL_ONLY_URL || info.menuItemId == COPY_TAB_URL_ONLY_URL) {
-        code = `copyToClipboard(${JSON.stringify(decodedUrl)});`;
-    } else {
-        // プレーンテキストのtextをデフォルトでセット
-        let text = `${title} <${decodedUrl}>`;
+    const decodedUrl = decodeURI(tab.url);
+    const title = tab.title;
+    let text = '';
 
-        if (info.menuItemId === COPY_PAGE_URL_AS_MD || info.menuItemId === COPY_TAB_URL_AS_MD) {
+    switch (info.menuItemId) {
+        case COPY_LINK_URL:
+            text = decodeURI(info.linkUrl);;
+            break;
+
+        case COPY_PAGE_URL_ONLY_URL:
+        case COPY_TAB_URL_ONLY_URL:
+            text = decodedUrl;
+            break;
+
+        case COPY_PAGE_URL_AS_TXT:
+        case COPY_TAB_URL_AS_TXT:
+            text = `${title} <${decodedUrl}>`;
+            break;
+
+        case COPY_PAGE_URL_AS_MD:
+        case COPY_TAB_URL_AS_RST:
             text = `[${title}](${decodedUrl})`;
-        } else if (info.menuItemId === COPY_PAGE_URL_AS_RST || info.menuItemId === COPY_TAB_URL_AS_RST) {
-            text = `\`${title} <${decodedUrl}>\`_`;
-        } else if (info.menuItemId === COPY_PAGE_URL_AS_TEXTILE || COPY_PAGE_URL_AS_TEXTILE) {
-            text = `"${title}":${decodedUrl}`;
-        }
+            break;
 
-        code = `copyToClipboard(${JSON.stringify(text)});`;
+        case COPY_PAGE_URL_AS_RST:
+        case COPY_TAB_URL_AS_RST:
+            text = `\`${title} <${decodedUrl}>\`_`;
+            break;
+
+        case COPY_PAGE_URL_AS_TEXTILE:
+        case COPY_PAGE_URL_AS_TEXTILE:
+            text = `"${title}":${decodedUrl}`;
+            break;
     }
+
+    const code = `copyToClipboard(${JSON.stringify(text)});`;
     executeCopy(code);
 });
