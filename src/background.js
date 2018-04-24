@@ -57,7 +57,7 @@ browser.contextMenus.create({
 
 browser.contextMenus.onClicked.addListener((info, tab) => {
     const executeCopy = (code) => {
-        browser.tabs.executeScript({
+        browser.tabs.executeScript(tab.id, {
             code: "typeof copyToClipboard === 'function';",
         }).then((results) => {
             // The content script's last expression will be true if the function
