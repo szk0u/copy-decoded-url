@@ -5,11 +5,17 @@
   "author": "szk0u <szk0u3@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
     "web-ext": "^2.6.0"
   },
   "scripts": {
     "start": "./node_modules/.bin/web-ext run",
     "build": "./node_modules/.bin/web-ext build",
-    "test": "./node_modules/.bin/web-ext lint"
+    "test": "./node_modules/.bin/web-ext lint",
+    "lint": "./node_modules/.bin/eslint src/**"
   }
 }

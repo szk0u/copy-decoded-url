@@ -15,105 +15,105 @@ const COPY_LINK_URL = 'copyLinkUrl';
 
 // add page context menu
 [COPY_PAGE_URL_ONLY_URL,
- COPY_PAGE_URL_AS_MD,
- COPY_PAGE_URL_AS_RST,
- COPY_PAGE_URL_AS_TEXTILE,
- COPY_PAGE_URL_AS_TXT]
- .forEach((id) => {
-    browser.contextMenus.create({
-        id: id,
-        title: browser.i18n.getMessage(id),
-        contexts: ["page"]
-    });
+  COPY_PAGE_URL_AS_MD,
+  COPY_PAGE_URL_AS_RST,
+  COPY_PAGE_URL_AS_TEXTILE,
+  COPY_PAGE_URL_AS_TXT
+].forEach((id) => {
+  browser.contextMenus.create({
+    id: id,
+    title: browser.i18n.getMessage(id),
+    contexts: ['page']
+  });
 });
 
 // add tab context menu
 if (typeof (browser.runtime.getBrowserInfo) !== 'undefined') {
-    let gettingInfo = browser.runtime.getBrowserInfo();
-    gettingInfo.then((info) => {
-        if (info.name === 'Firefox') {
-            [COPY_TAB_URL_ONLY_URL,
-             COPY_TAB_URL_AS_MD,
-             COPY_TAB_URL_AS_RST,
-             COPY_TAB_URL_AS_TEXTILE,
-             COPY_TAB_URL_AS_TXT]
-             .forEach((id) => {
-                browser.contextMenus.create({
-                    id: id,
-                    title: browser.i18n.getMessage(id),
-                    contexts: ["tab"]
-                });
-            });
-        }
-    });
+  let gettingInfo = browser.runtime.getBrowserInfo();
+  gettingInfo.then((info) => {
+    if (info.name === 'Firefox') {
+      [COPY_TAB_URL_ONLY_URL,
+        COPY_TAB_URL_AS_MD,
+        COPY_TAB_URL_AS_RST,
+        COPY_TAB_URL_AS_TEXTILE,
+        COPY_TAB_URL_AS_TXT
+      ].forEach((id) => {
+        browser.contextMenus.create({
+          id: id,
+          title: browser.i18n.getMessage(id),
+          contexts: ['tab']
+        });
+      });
+    }
+  });
 }
 
 // add link context menu
 browser.contextMenus.create({
-    id: COPY_LINK_URL,
-    title: browser.i18n.getMessage(COPY_LINK_URL),
-    contexts: ["link"]
+  id: COPY_LINK_URL,
+  title: browser.i18n.getMessage(COPY_LINK_URL),
+  contexts: ['link']
 });
 
 browser.contextMenus.onClicked.addListener((info, tab) => {
-    const executeCopy = (code) => {
-        browser.tabs.executeScript(tab.id, {
-            code: "typeof copyToClipboard === 'function';",
-        }).then((results) => {
-            // The content script's last expression will be true if the function
-            // has been defined. If this is not the case, then we need to run
-            // clipboard-helper.js to define function copyToClipboard.
-            if (!results || results[0] !== true) {
-                return browser.tabs.executeScript(tab.id, {
-                    file: "src/clipboard-helper.js",
-                });
-            }
-        }).then(() => {
-            return browser.tabs.executeScript(tab.id, {
-                code,
-            });
-        }).catch((error) => {
-            // This could happen if the extension is not allowed to run code in
-            // the page, for example if the tab is a privileged page.
-            console.error("Failed to copy text: " + error);
+  const executeCopy = (code) => {
+    browser.tabs.executeScript(tab.id, {
+      code: "typeof copyToClipboard === 'function';"
+    }).then((results) => {
+      // The content script's last expression will be true if the function
+      // has been defined. If this is not the case, then we need to run
+      // clipboard-helper.js to define function copyToClipboard.
+      if (!results || results[0] !== true) {
+        return browser.tabs.executeScript(tab.id, {
+          file: 'src/clipboard-helper.js'
         });
-    };
+      }
+    }).then(() => {
+      return browser.tabs.executeScript(tab.id, {
+        code
+      });
+    }).catch((error) => {
+      // This could happen if the extension is not allowed to run code in
+      // the page, for example if the tab is a privileged page.
+      console.error('Failed to copy text: ' + error);
+    });
+  };
 
-    const decodedUrl = decodeURI(tab.url);
-    const title = tab.title;
-    let text = '';
+  const decodedUrl = decodeURI(tab.url);
+  const title = tab.title;
+  let text = '';
 
-    switch (info.menuItemId) {
-        case COPY_LINK_URL:
-            text = decodeURI(info.linkUrl);;
-            break;
+  switch (info.menuItemId) {
+    case COPY_LINK_URL:
+      text = decodeURI(info.linkUrl);
+      break;
 
-        case COPY_PAGE_URL_ONLY_URL:
-        case COPY_TAB_URL_ONLY_URL:
-            text = decodedUrl;
-            break;
+    case COPY_PAGE_URL_ONLY_URL:
+    case COPY_TAB_URL_ONLY_URL:
+      text = decodedUrl;
+      break;
 
-        case COPY_PAGE_URL_AS_TXT:
-        case COPY_TAB_URL_AS_TXT:
-            text = `${title} <${decodedUrl}>`;
-            break;
+    case COPY_PAGE_URL_AS_TXT:
+    case COPY_TAB_URL_AS_TXT:
+      text = `${title} <${decodedUrl}>`;
+      break;
 
-        case COPY_PAGE_URL_AS_MD:
-        case COPY_TAB_URL_AS_RST:
-            text = `[${title}](${decodedUrl})`;
-            break;
+    case COPY_PAGE_URL_AS_MD:
+    case COPY_TAB_URL_AS_MD:
+      text = `[${title}](${decodedUrl})`;
+      break;
 
-        case COPY_PAGE_URL_AS_RST:
-        case COPY_TAB_URL_AS_RST:
-            text = `\`${title} <${decodedUrl}>\`_`;
-            break;
+    case COPY_PAGE_URL_AS_RST:
+    case COPY_TAB_URL_AS_RST:
+      text = `\`${title} <${decodedUrl}>\`_`;
+      break;
 
-        case COPY_PAGE_URL_AS_TEXTILE:
-        case COPY_PAGE_URL_AS_TEXTILE:
-            text = `"${title}":${decodedUrl}`;
-            break;
-    }
+    case COPY_PAGE_URL_AS_TEXTILE:
+    case COPY_TAB_URL_AS_TEXTILE:
+      text = `"${title}":${decodedUrl}`;
+      break;
+  }
 
-    const code = `copyToClipboard(${JSON.stringify(text)});`;
-    executeCopy(code);
+  const code = `copyToClipboard(${JSON.stringify(text)});`;
+  executeCopy(code);
 });
