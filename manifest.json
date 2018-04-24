@@ -9,8 +9,8 @@
 
     "background": {
       "scripts": [
-        "browser-polyfill.min.js",
-        "background.js"]
+        "lib/browser-polyfill.min.js",
+        "src/background.js"]
     },
 
     "permissions": [

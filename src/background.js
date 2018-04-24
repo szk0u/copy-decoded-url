@@ -65,7 +65,7 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
             // clipboard-helper.js to define function copyToClipboard.
             if (!results || results[0] !== true) {
                 return browser.tabs.executeScript(tab.id, {
-                    file: "clipboard-helper.js",
+                    file: "src/clipboard-helper.js",
                 });
             }
         }).then(() => {
