@@ -5,11 +5,13 @@ const COPY_PAGE_URL_ONLY_URL = 'copyPageUrlOnlyUrl';
 const COPY_PAGE_URL_AS_MD = 'copyPageUrlAsMd';
 const COPY_PAGE_URL_AS_RST = 'copyPageUrlAsRst';
 const COPY_PAGE_URL_AS_TEXTILE = 'copyPageUrlAsTextile';
+const COPY_PAGE_URL_AS_ADOC = 'copyPageUrlAsAdoc';
 const COPY_PAGE_URL_AS_TXT = 'copyPageUrlAsTxt';
 const COPY_TAB_URL_ONLY_URL = 'copyTabUrlOnlyUrl';
 const COPY_TAB_URL_AS_MD = 'copyTabUrlAsMd';
 const COPY_TAB_URL_AS_RST = 'copyTabUrlAsRst';
 const COPY_TAB_URL_AS_TEXTILE = 'copyTabUrlAsTextile';
+const COPY_TAB_URL_AS_ADOC = 'copyTabUrlAsAdoc';
 const COPY_TAB_URL_AS_TXT = 'copyTabUrlAsTxt';
 const COPY_LINK_URL = 'copyLinkUrl';
 
@@ -18,6 +20,7 @@ const COPY_LINK_URL = 'copyLinkUrl';
   COPY_PAGE_URL_AS_MD,
   COPY_PAGE_URL_AS_RST,
   COPY_PAGE_URL_AS_TEXTILE,
+  COPY_PAGE_URL_AS_ADOC,
   COPY_PAGE_URL_AS_TXT
 ].forEach((id) => {
   browser.contextMenus.create({
@@ -36,6 +39,7 @@ if (typeof (browser.runtime.getBrowserInfo) !== 'undefined') {
         COPY_TAB_URL_AS_MD,
         COPY_TAB_URL_AS_RST,
         COPY_TAB_URL_AS_TEXTILE,
+        COPY_TAB_URL_AS_ADOC,
         COPY_TAB_URL_AS_TXT
       ].forEach((id) => {
         browser.contextMenus.create({
@@ -111,6 +115,11 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
     case COPY_PAGE_URL_AS_TEXTILE:
     case COPY_TAB_URL_AS_TEXTILE:
       text = `"${title}":${decodedUrl}`;
+      break;
+
+    case COPY_PAGE_URL_AS_ADOC:
+    case COPY_TAB_URL_AS_ADOC:
+      text = `${decodedUrl}[${title}]`;
       break;
   }
 

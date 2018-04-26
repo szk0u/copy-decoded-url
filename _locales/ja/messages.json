@@ -34,6 +34,11 @@
     "description": "コンテキストメニューのタイトルです。"
   },
 
+  "copyPageUrlAsAdoc": {
+    "message": "現在のページのURLとタイトルをコピー(AsciiDoc形式)",
+    "description": "コンテキストメニューのタイトルです。"
+  },
+
   "copyTabUrlOnlyUrl": {
     "message": "タブのURLのみコピー",
     "description": "コンテキストメニューのタイトルです。"
@@ -56,6 +61,11 @@
 
   "copyTabUrlAsTextile": {
     "message": "タブのURLとタイトルをコピー(textile形式)",
+    "description": "コンテキストメニューのタイトルです。"
+  },
+
+  "copyTabUrlAsAdoc": {
+    "message": "タブのURLとタイトルをコピー(AsciiDoc形式)",
     "description": "コンテキストメニューのタイトルです。"
   },
 
