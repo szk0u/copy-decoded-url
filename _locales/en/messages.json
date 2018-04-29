@@ -1,0 +1,76 @@
+{
+  "extensionName": {
+    "message": "copy-decode-url",
+    "description": "Name of the extension."
+  },
+
+  "extensionDescription": {
+    "message": "copy decoded URL",
+    "description": "Description of the extension."
+  },
+
+  "copyPageUrlOnlyUrl": {
+    "message": "copy url of the current page",
+    "description": "Title of the context menu."
+  },
+
+  "copyPageUrlAsTxt": {
+    "message": "copy url and title of the current page",
+    "description": "Title of the context menu."
+  },
+
+  "copyPageUrlAsMd": {
+    "message": "copy url and title of the current page (format: markdown)",
+    "description": "Title of the context menu.。"
+  },
+
+  "copyPageUrlAsRst": {
+    "message": "copy url and title of the current page (format: reStructuredText)",
+    "description": "Title of the context menu."
+  },
+
+  "copyPageUrlAsTextile": {
+    "message": "copy url and title of the current page (format: textile)",
+    "description": "Title of the context menu."
+  },
+
+  "copyPageUrlAsAdoc": {
+    "message": "copy url and title of the current page (format: AsciiDoc)",
+    "description": "Title of the context menu."
+  },
+
+  "copyTabUrlOnlyUrl": {
+    "message": "copy url of this tab",
+    "description": "Title of the context menu."
+  },
+
+  "copyTabUrlAsTxt": {
+    "message": "copy url and title of this tab",
+    "description": "Title of the context menu."
+  },
+
+  "copyTabUrlAsMd": {
+    "message": "copy url and title of this tab (format: markdown)",
+    "description": "Title of the context menu."
+  },
+
+  "copyTabUrlAsRst": {
+    "message": "copy url and title of this tab (format: reStructuredText)",
+    "description": "Title of the context menu."
+  },
+
+  "copyTabUrlAsTextile": {
+    "message": "copy url and title of this tab (format: textile)",
+    "description": "Title of the context menu."
+  },
+
+  "copyTabUrlAsAdoc": {
+    "message": "copy url and title of this tab (format: AsciiDoc)",
+    "description": "Title of the context menu."
+  },
+
+  "copyLinkUrl": {
+    "message": "copy decoded url of the link",
+    "description": "Title of the context menu."
+  }
+}
