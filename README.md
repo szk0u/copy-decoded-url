@@ -5,7 +5,7 @@ URLを日本語の状態(デコードした状態)でコピーします。
 使い方1 ページを右クリックしてそのページのURLをコピー
 ![how to use 1](screenshot/howtouse1.gif)
 
-使い方2 タブを右クリックしてそのタブのURLをコピー
+使い方2 タブを右クリックしてそのタブのURLをコピー(Firfoxのみ、Chromeは非対応)
 ![how to use 2](screenshot/howtouse2.gif)
 
 使い方3 リンクを右クリックしてそのリンクのURLをコピー
