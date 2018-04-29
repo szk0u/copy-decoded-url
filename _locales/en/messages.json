@@ -9,6 +9,11 @@
     "description": "Description of the extension."
   },
 
+  "pageActionTitle": {
+    "message": "copy decoded url",
+    "description": "Title of page action."
+  },
+
   "copyPageUrlOnlyUrl": {
     "message": "copy url of the current page",
     "description": "Title of the context menu."

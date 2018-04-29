@@ -14,6 +14,16 @@
     ]
   },
 
+  "page_action": {
+    "browser_style": false,
+    "default_title": "__MSG_pageActionTitle__",
+    "default_icon": {
+      "16": "icon/clipboard-16.png",
+      "32": "icon/clipboard-32.png"
+    },
+    "show_matches": ["https://*/*", "http://*/*"]
+  },
+
   "permissions": [
     "<all_urls>",
     "activeTab",

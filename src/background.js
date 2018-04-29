@@ -126,3 +126,32 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
   const code = `copyToClipboard(${JSON.stringify(text)});`;
   executeCopy(code);
 });
+
+browser.pageAction.onClicked.addListener((tab) => {
+  const executeCopy = (code) => {
+    browser.tabs.executeScript(tab.id, {
+      code: "typeof copyToClipboard === 'function';"
+    }).then((results) => {
+      // The content script's last expression will be true if the function
+      // has been defined. If this is not the case, then we need to run
+      // clipboard-helper.js to define function copyToClipboard.
+      if (!results || results[0] !== true) {
+        return browser.tabs.executeScript(tab.id, {
+          file: 'src/clipboard-helper.js'
+        });
+      }
+    }).then(() => {
+      return browser.tabs.executeScript(tab.id, {
+        code
+      });
+    }).catch((error) => {
+      // This could happen if the extension is not allowed to run code in
+      // the page, for example if the tab is a privileged page.
+      console.error('Failed to copy text: ' + error);
+    });
+  };
+
+  const decodedUrl = decodeURI(tab.url);
+  const code = `copyToClipboard(${JSON.stringify(decodedUrl)});`;
+  executeCopy(code);
+});

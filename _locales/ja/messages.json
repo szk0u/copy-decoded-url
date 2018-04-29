@@ -9,6 +9,11 @@
     "description": "拡張機能の説明です。"
   },
 
+  "pageActionTitle": {
+    "message": "URLを日本語のままコピー",
+    "description": "ページアクションのタイトルです。"
+  },
+
   "copyPageUrlOnlyUrl": {
     "message": "現在のページのURLのみコピー",
     "description": "コンテキストメニューのタイトルです。"
