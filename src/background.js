@@ -127,6 +127,11 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
   executeCopy(code);
 });
 
+// chromeの場合には明示的にpageAction.showを呼び出す必要あり
+browser.tabs.onUpdated.addListener((tabId) => {
+  browser.pageAction.show(tabId);
+});
+
 browser.pageAction.onClicked.addListener((tab) => {
   const executeCopy = (code) => {
     browser.tabs.executeScript(tab.id, {

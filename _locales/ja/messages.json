@@ -10,7 +10,7 @@
   },
 
   "pageActionTitle": {
-    "message": "URLを日本語のままコピー",
+    "message": "アドレスバーのURLを日本語のままコピー",
     "description": "ページアクションのタイトルです。"
   },
 

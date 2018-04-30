@@ -10,7 +10,7 @@
   },
 
   "pageActionTitle": {
-    "message": "copy decoded url",
+    "message": "copy decoded url on the address bar",
     "description": "Title of page action."
   },
 
