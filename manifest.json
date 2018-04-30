@@ -3,7 +3,7 @@
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
-  "version": "1.5",
+  "version": "1.6",
   "homepage_url": "https://github.com/szk0u/copy-decoded-url",
   "default_locale": "ja",
 
@@ -25,7 +25,6 @@
   },
 
   "permissions": [
-    "<all_urls>",
     "activeTab",
     "contextMenus",
     "clipboardWrite",

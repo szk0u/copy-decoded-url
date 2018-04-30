@@ -59,7 +59,10 @@ browser.contextMenus.create({
   contexts: ['link']
 });
 
-const executeCopy = (code, tabId) => {
+const executeCopy = (code) => {
+  // tabs.executeScriptをactive tab以外のタブで実行する場合、Host permissionsが必要なので、
+  // active tabで実行する
+  const tabId = browser.tabs.getCurrent().id;
   browser.tabs.executeScript(tabId, {
     code: "typeof copyToClipboard === 'function';"
   }).then((results) => {
@@ -124,7 +127,7 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
   }
 
   const code = `copyToClipboard(${JSON.stringify(text)});`;
-  executeCopy(code, tab.id);
+  executeCopy(code);
 });
 
 // chromeの場合には明示的にpageAction.showを呼び出す必要あり
@@ -135,5 +138,5 @@ browser.tabs.onUpdated.addListener((tabId) => {
 browser.pageAction.onClicked.addListener((tab) => {
   const decodedUrl = decodeURI(tab.url);
   const code = `copyToClipboard(${JSON.stringify(decodedUrl)});`;
-  executeCopy(code, tab.id);
+  executeCopy(code);
 });
